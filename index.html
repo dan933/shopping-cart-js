@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input
+        {            
+            margin-top: 5px;
+        }
+
+        label
+        {
+            text-align: left;
+        }
+        
+        .add-item-grid
+        {                        
+            display: grid;
+            grid-template-columns:[first] 170px;
+            grid-template-rows: [row1-start] 50px;
+            grid-gap:5px;
+        }
+    </style>
+</head>
+<body>
+    
+
+    
+        <h1>Shopping Cart</h1>
+    <div>
+        <form class="add-item-grid" id="add-item">
+            <label>
+                Description
+                <input id="discription" type="text">
+            </label>
+            <label>
+                Amount
+                <input id="amount" type="number">
+            </label>
+            <button type="button" onclick="addItem()">Add Item</button>
+        </form>
+    </div>
+
+
+    
+    <script>
+        var list = [];
+        var addItemObject = document.getElementById("add-item").querySelectorAll('input');
+
+        function addItem(){
+
+            var discription = document.getElementById("discription");
+            var amount = document.getElementById("amount");
+
+            list.push({item:{discription:discription.value,amount:parseInt(amount.value)}});
+            console.log(list);
+        }
+        
+    // Build the front end of a single-page shopping cart.
+    // People should be able to add or remove items, and the list of items should update along with the total cost.
+    </script>
+</body>
+</html>
