@@ -29,21 +29,25 @@
     
 
     
-        <h1>Shopping Cart</h1>
-    <div>
-        <form class="add-item-grid" id="add-item">
-            <label>
-                Description
-                <input id="discription" type="text">
-            </label>
-            <label>
-                Amount
-                <input id="amount" type="number">
-            </label>
-            <button type="button" onclick="addItem()">Add Item</button>
-        </form>
-    </div>
-
+    <h1>Shopping Cart</h1>
+    <form class="add-item-grid" id="add-item">
+        <label>
+            Description
+            <input id="discription" type="text">
+        </label>
+        <label>
+            Amount
+            <input id="amount" type="number">
+        </label>
+        <button type="button" onclick="addItem()">Add Item</button>
+    </form>
+    <form id="shopping-cart">
+        <label>
+            test
+            <input type="checkbox">
+        </label>
+    </form>
+    <div id="total">Total:<span>0</span></div>
 
     
     <script>
@@ -55,10 +59,34 @@
             var discription = document.getElementById("discription");
             var amount = document.getElementById("amount");
 
-            list.push({item:{discription:discription.value,amount:parseInt(amount.value)}});
+            list.push({discription:discription.value,amount:parseInt(amount.value)});
             console.log(list);
+
+            var shoppingCartForm = document.getElementById('shopping-cart')
+
+            var content = '';
+            list.forEach(i =>{
+                content += `
+            <label>
+            ${i.discription}
+            <input type="checkbox" value=${i.amount} onclick="calculateTotal(this)">
+            </label>`
+            });
+
+            shoppingCartForm.innerHTML = content;
         }
-        
+
+        function calculateTotal(item) {
+            var amount = parseFloat(document.getElementById('total').querySelector('span').innerHTML);
+            if(item.checked){
+                amount += parseFloat(item.value);
+            }else{
+                amount -= parseFloat(item.value)
+            }
+
+            document.getElementById('total').querySelector('span').innerHTML = amount;
+
+        } 
     // Build the front end of a single-page shopping cart.
     // People should be able to add or remove items, and the list of items should update along with the total cost.
     </script>
