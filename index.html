@@ -42,10 +42,7 @@
         <button type="button" onclick="addItem()">Add Item</button>
     </form>
     <form id="shopping-cart">
-        <!-- <label>
-            test
-            <input type="checkbox" checked>
-        </label> -->
+       
     </form>
     <div id="total">Total:<span>0</span></div>
 
@@ -57,17 +54,16 @@
         //var addItemObject = document.getElementById("add-item").querySelectorAll('input');
 
         function calculateTotal(item) {            
-            var amount = parseFloat(document.getElementById('total').querySelector('span').innerHTML);
+            var amount = getAmount();
+            var index = findItemIndex(item);        
 
-            var index = list.map((i) => {return i.id}).indexOf(item.id);
-            console.log(index);
             if(item.checked){
                  
                 list[index].checked = "checked";
 
                 amount += parseFloat(item.value);
             }else{
-                
+
                 list[index].checked = "";
                 amount -= parseFloat(item.value)
             }
@@ -95,13 +91,23 @@
                 
                 content += `
             <label>
-            ${i.discription}
             <input id="${i.id}" ${i.checked} type="checkbox" value=${i.amount} onclick="calculateTotal(this)">
+            ${i.discription}
             </label>`
             });            
             shoppingCartForm.innerHTML = content;
         }
 
+
+        function getAmount(){
+            var amount = parseFloat(document.getElementById('total').querySelector('span').innerHTML);
+            return amount;
+        }
+
+        function findItemIndex(item){
+            var index = list.map((i) => {return i.id}).indexOf(item.id);
+            return index;
+        }
     // Build the front end of a single-page shopping cart.
     // People should be able to add or remove items, and the list of items should update along with the total cost.
     </script>
