@@ -42,51 +42,66 @@
         <button type="button" onclick="addItem()">Add Item</button>
     </form>
     <form id="shopping-cart">
-        <label>
+        <!-- <label>
             test
-            <input type="checkbox">
-        </label>
+            <input type="checkbox" checked>
+        </label> -->
     </form>
     <div id="total">Total:<span>0</span></div>
 
     
     <script>
+        var count = 0;
         var list = [];
-        var addItemObject = document.getElementById("add-item").querySelectorAll('input');
 
-        function addItem(){
+        //var addItemObject = document.getElementById("add-item").querySelectorAll('input');
 
-            var discription = document.getElementById("discription");
-            var amount = document.getElementById("amount");
-
-            list.push({discription:discription.value,amount:parseInt(amount.value)});
-            console.log(list);
-
-            var shoppingCartForm = document.getElementById('shopping-cart')
-
-            var content = '';
-            list.forEach(i =>{
-                content += `
-            <label>
-            ${i.discription}
-            <input type="checkbox" value=${i.amount} onclick="calculateTotal(this)">
-            </label>`
-            });
-
-            shoppingCartForm.innerHTML = content;
-        }
-
-        function calculateTotal(item) {
+        function calculateTotal(item) {            
             var amount = parseFloat(document.getElementById('total').querySelector('span').innerHTML);
+
+            var index = list.map((i) => {return i.id}).indexOf(item.id);
+            console.log(index);
             if(item.checked){
+                 
+                list[index].checked = "checked";
+
                 amount += parseFloat(item.value);
             }else{
+                
+                list[index].checked = "";
                 amount -= parseFloat(item.value)
             }
 
             document.getElementById('total').querySelector('span').innerHTML = amount;
 
         } 
+
+        function addItem(){
+            var discription = document.getElementById("discription");
+            var amount = document.getElementById("amount");
+            count++;
+
+            list.push({
+                id:"item-"+count,
+                discription:discription.value,
+                amount:parseInt(amount.value),
+                checked:""
+            });            
+
+            var shoppingCartForm = document.getElementById('shopping-cart')
+
+            var content = '';
+            list.forEach((i) =>{      
+                
+                content += `
+            <label>
+            ${i.discription}
+            <input id="${i.id}" ${i.checked} type="checkbox" value=${i.amount} onclick="calculateTotal(this)">
+            </label>`
+            });            
+            shoppingCartForm.innerHTML = content;
+        }
+
     // Build the front end of a single-page shopping cart.
     // People should be able to add or remove items, and the list of items should update along with the total cost.
     </script>
