@@ -36,6 +36,19 @@
             /* grid-template-rows: [row1-start] 10px; */
             grid-gap:5px;
         }
+
+        .delete-item
+        {
+            background-color: rgba(255, 0, 0, 0.582);
+            text-align: right;
+            border-width: 1px;
+            border-radius: 3px;
+        }
+
+        .delete-item:hover
+        {
+            background-color: red;
+        }
     </style>
 </head>
 <body>
@@ -51,7 +64,7 @@
         <label>
             Amount
             <input id="amount" type="number">
-        </label>
+        </label>        
         <button type="button" onclick="addItem()">Add Item</button>
     </form>
     <form id="shopping-cart">
@@ -98,6 +111,11 @@
                 checked:""
             });            
 
+            populateList();
+        }
+
+        function populateList()
+        {
             var shoppingCartForm = document.getElementById('item-list-container')
 
             var content = '';
@@ -107,6 +125,7 @@
             <label>
             <input id="${i.id}" ${i.checked} type="checkbox" value=${i.amount} onclick="calculateTotal(this)">
             ${i.discription}
+            <button type="button" value="${i.id}"onclick="deleteItem(this)" class="delete-item">X</button>
             </label>`
             });            
             shoppingCartForm.innerHTML = content;
@@ -121,6 +140,13 @@
             var index = list.map((i) => {return i.id}).indexOf(item.id);
             return index;
         }
+
+        function deleteItem(item){            
+            var index = list.map((i) => {return i.id}).indexOf(item.value);
+            list.splice(index,1);
+            populateList();           
+        }
+
     // Build the front end of a single-page shopping cart.
     // People should be able to add or remove items, and the list of items should update along with the total cost.
     </script>
