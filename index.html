@@ -23,6 +23,19 @@
             grid-template-rows: [row1-start] 50px;
             grid-gap:5px;
         }
+
+        #item-list-container
+        {
+            margin-top:10px;
+            background-color: lightgray;
+            width: 170px;
+            height: 20vh;
+            overflow-y:scroll;
+            display: grid;
+            grid-template-columns:[first] 160px;
+            /* grid-template-rows: [row1-start] 10px; */
+            grid-gap:5px;
+        }
     </style>
 </head>
 <body>
@@ -42,6 +55,9 @@
         <button type="button" onclick="addItem()">Add Item</button>
     </form>
     <form id="shopping-cart">
+        <div id="item-list-container">
+
+        </div>
        
     </form>
     <div id="total">Total:<span>0</span></div>
@@ -49,9 +65,7 @@
     
     <script>
         var count = 0;
-        var list = [];
-
-        //var addItemObject = document.getElementById("add-item").querySelectorAll('input');
+        var list = [];        
 
         function calculateTotal(item) {            
             var amount = getAmount();
@@ -84,7 +98,7 @@
                 checked:""
             });            
 
-            var shoppingCartForm = document.getElementById('shopping-cart')
+            var shoppingCartForm = document.getElementById('item-list-container')
 
             var content = '';
             list.forEach((i) =>{      
@@ -97,7 +111,6 @@
             });            
             shoppingCartForm.innerHTML = content;
         }
-
 
         function getAmount(){
             var amount = parseFloat(document.getElementById('total').querySelector('span').innerHTML);
