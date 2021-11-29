@@ -52,9 +52,6 @@
     </style>
 </head>
 <body>
-    
-
-    
     <h1>Shopping Cart</h1>
     <form class="add-item-grid" id="add-item">
         <label>
@@ -75,14 +72,13 @@
     </form>
     <div id="total">Total:<span>0</span></div>
 
-    
     <script>
         var count = 0;
         var list = [];        
 
         function calculateTotal(item) {            
             var amount = getAmount();
-            var index = findItemIndex(item);        
+            var index = findItemIndex(item,"id");        
 
             if(item.checked){
                  
@@ -136,13 +132,13 @@
             return amount;
         }
 
-        function findItemIndex(item){
-            var index = list.map((i) => {return i.id}).indexOf(item.id);
+        function findItemIndex(item,indexKey){            
+            var index = list.map((i) => {return i.id}).indexOf(item[indexKey]);
             return index;
         }
 
         function deleteItem(item){            
-            var index = list.map((i) => {return i.id}).indexOf(item.value);
+            var index = findItemIndex(item,"value");
             list.splice(index,1);
             populateList();           
         }
