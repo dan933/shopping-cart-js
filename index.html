@@ -14,6 +14,7 @@
         label
         {
             text-align: left;
+            cursor: pointer;
         }
         
         .add-item-grid
@@ -31,18 +32,24 @@
             width: 170px;
             height: 20vh;
             overflow-y:scroll;
+            overflow-x: scroll;
             display: grid;
             grid-template-columns:[first] 160px;
-            /* grid-template-rows: [row1-start] 10px; */
             grid-gap:5px;
+        }
+
+        .item
+        {
+            white-space: nowrap;
         }
 
         .delete-item
         {
             background-color: rgba(255, 0, 0, 0.582);
             text-align: right;
-            border-width: 1px;
-            border-radius: 3px;
+            border-width: 0.5px;
+            border-radius: 4px;
+            cursor: pointer;            
         }
 
         .delete-item:hover
@@ -66,7 +73,6 @@
     </form>
     <form id="shopping-cart">
         <div id="item-list-container">
-
         </div>
        
     </form>
@@ -118,11 +124,12 @@
             list.forEach((i) =>{      
                 
                 content += `
-            <label>
+            <div class="item">
             <input id="${i.id}" ${i.checked} type="checkbox" value=${i.amount} onclick="calculateTotal(this)">
-            ${i.discription}
-            <button type="button" value="${i.id}"onclick="deleteItem(this)" class="delete-item">X</button>
-            </label>`
+            <label>${i.discription}</label>
+            <button class="delete-item" type="button" value="${i.id}"onclick="deleteItem(this)" >x</button>
+            </div>
+                    `
             });            
             shoppingCartForm.innerHTML = content;
         }
